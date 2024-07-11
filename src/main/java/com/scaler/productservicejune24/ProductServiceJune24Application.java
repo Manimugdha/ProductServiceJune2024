@@ -11,6 +11,7 @@ public class ProductServiceJune24Application {
 
         SpringApplication.run(ProductServiceJune24Application.class, args);
         Product product = new Product();
+        product.setTitle(" Iphone 15");
     }
 
 }
