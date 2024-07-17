@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 //this class will be exactly similar to data that we are getting from fakestore , replica of the output of the api call
+//DTO will be used in controller layer.
 public class FakeStoreProductDto {
     private Long id;
     private String title;
