@@ -1,6 +1,7 @@
 package com.scaler.productservicejune24.services;
 
 import com.scaler.productservicejune24.dtos.FakeStoreProductDto;
+import com.scaler.productservicejune24.exceptions.ProductNotFoundException;
 import com.scaler.productservicejune24.models.Category;
 import com.scaler.productservicejune24.models.Product;
 import org.springframework.http.HttpMethod;
@@ -22,17 +23,22 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product getSingleProduct(Long productId) {
-        //call fakestore  service to fetch the product with given id .=> HTTP call.(multiple ways to make an http call )
-        //one of the most widely used is REST TEMPLATE ( its a class) which allow us to   https call to 3rd party system.
-         //RestTemplate restTemplate = new RestTemplate();
+    public Product getSingleProduct(Long productId) throws ProductNotFoundException {
+       // throw new ArithmeticException("Something went wrong ");
+
+//        call fakestore  service to fetch the product with given id .=> HTTP call.(multiple ways to make an http call )
+//        one of the most widely used is REST TEMPLATE ( its a class) which allow us to   https call to 3rd party system.
+         RestTemplate restTemplate = new RestTemplate();
 
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject(
                 "https://fakestoreapi.com/products/" + productId, //call this url and whatever data is returning convert the output into this type( ie FakestrePrdDto.clss)
                 FakeStoreProductDto.class// we have manually replicated the output of the url in dto class
         );
-        //convert fakeStoreProductDto into Product (
-        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+        if(fakeStoreProductDto == null){
+            throw new ProductNotFoundException("Product with id "+productId+"doesn't exist");
+        }
+
+        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);//convert fakeStoreProductDto into Product
 
     }
 
