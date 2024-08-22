@@ -4,6 +4,7 @@ import com.scaler.productservicejune24.dtos.FakeStoreProductDto;
 import com.scaler.productservicejune24.exceptions.ProductNotFoundException;
 import com.scaler.productservicejune24.models.Category;
 import com.scaler.productservicejune24.models.Product;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;

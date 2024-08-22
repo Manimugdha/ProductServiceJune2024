@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    //here we write all the exception that need to be thrown
 
     @ExceptionHandler(ArithmeticException.class) // this method we want to execute when , for what type of exception ?  => Arithmatic.class type (type we define as . class)
     //if exception happens dont pass exception as it is to the client , execute the below code.
