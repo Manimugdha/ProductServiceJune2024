@@ -16,7 +16,7 @@ import java.util.Date;
 public class BaseModel {
     @Id // this is the primary key of all the child classes.
     @GeneratedValue(strategy = GenerationType.IDENTITY)// autoincrement of the primary key in DB
-    private long id ;
+    private Long id ;
     private Date createdAt;
     private Date updatedAt;
 }

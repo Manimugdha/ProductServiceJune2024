@@ -3,6 +3,7 @@ package com.scaler.productservicejune24.controllers;
 import com.scaler.productservicejune24.exceptions.ProductNotFoundException;
 import com.scaler.productservicejune24.models.Product;
 import com.scaler.productservicejune24.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class ProductController {
     how will in we inject the object of this : using dependency injection
     
      */
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("selfProductService") //springboot will inject this bean with this name in this reference
+                             ProductService productService) {
         this.productService = productService;
     }
 
@@ -62,14 +64,18 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    public void deleteProduct(Long productId){
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long productId){
+          productService.deleteProduct(productId);
 
     }
+
     //PATCH -> http:// localhost:8080/products/1 (update the product with id 1)
     @PatchMapping("/{id}")
     public  Product updateProduct(@PathVariable("id") Long id,@RequestBody Product product){// ideally we should create DTO here,
         return  productService.updateProduct(id,product);
     }
+
      @PutMapping("/{id}")
     public  Product replaceProduct(@PathVariable("id") Long id,@RequestBody Product product){
      //put
@@ -84,7 +90,10 @@ public class ProductController {
 //
 //        return  response;
 //    }
-
+     @PostMapping
+    public Product addnewProduct(@RequestBody Product product){
+        return productService.addNewProduct(product);
+    }
 
 
 }

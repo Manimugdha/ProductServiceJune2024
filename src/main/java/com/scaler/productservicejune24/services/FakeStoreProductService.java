@@ -5,6 +5,7 @@ import com.scaler.productservicejune24.exceptions.ProductNotFoundException;
 import com.scaler.productservicejune24.models.Category;
 import com.scaler.productservicejune24.models.Product;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -14,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakeStoreProductService")//this is the name of bean of fsps class
+//@Primary// fakestore is the primary implementationof product service interface
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
@@ -90,6 +92,11 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public void deleteProduct(Long productId) {
 
+    }
+
+    @Override
+    public Product addNewProduct(Product product) {
+        return null;
     }
 
     //convert FakeStoreProductDto into Product(we will use this methods as its will be repeatedly use )
