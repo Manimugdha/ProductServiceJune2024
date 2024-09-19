@@ -72,7 +72,7 @@ public class ProductController {
 
     //PATCH -> http:// localhost:8080/products/1 (update the product with id 1)
     @PatchMapping("/{id}")
-    public  Product updateProduct(@PathVariable("id") Long id,@RequestBody Product product){// ideally we should create DTO here,
+    public  Product updateProduct(@PathVariable("id") Long id,@RequestBody Product product) throws ProductNotFoundException {// ideally we should create DTO here,
         return  productService.updateProduct(id,product);
     }
 

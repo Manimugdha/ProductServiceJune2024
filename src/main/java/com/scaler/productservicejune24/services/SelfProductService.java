@@ -37,12 +37,25 @@ public class SelfProductService implements ProductService{
     public List<Product> getAllProducts() {
         return null;
     }
-
+//PATCH
     @Override
-    public Product updateProduct(Long productId, Product product) {
-        return null;
+    public Product updateProduct(Long id, Product product) throws ProductNotFoundException {// update the product with this id with this product
+        //optional is used whenever we find product with id
+        Optional<Product> optionalProduct = productRepository.findById(id);
+       if (optionalProduct.isEmpty()) {
+           throw new ProductNotFoundException("Product with id"+id+" does not exist");
+       }
+        Product productInDb = optionalProduct.get();
+        if (product.getTitle() != null){
+            productInDb.setTitle(product.getTitle());
+        }
+        if(product.getPrice() != null){
+           // double p = product.getPrice();
+            productInDb.setPrice(product.getPrice());
+        }
+        return  productRepository.save(productInDb);
     }
-
+//PUT
     @Override
     public Product replaceProduct(Long productId, Product product) {
         return null;
@@ -56,16 +69,19 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product addNewProduct(Product product) {
+        //we are making the category if the product is complety new
         //here we need to check the product object getting in the input parameter if it's category is already set or not ,if not it will throw error .
         //first we need to create a new  category
         Category category = product.getCategory();
 
-        if (category.getId()== null) { //that means id is not set
-            //we crete a new category object in the DB first.
-            category = categoryRepository.save(category);
-            product.setCategory(category);
+        // below if condition is managed by CASCADE in model pkg
 
-        }
+//        if (category.getId()== null) { //that means id is not set
+//            //we crete a new category object in the DB first.
+//            category = categoryRepository.save(category);
+//            product.setCategory(category);
+//
+//        }
        return productRepository.save(product);
     }
 

@@ -1,8 +1,10 @@
 package com.scaler.productservicejune24.repositories;
 
 import com.scaler.productservicejune24.models.Product;
+import com.scaler.productservicejune24.projections.ProductWithIdAndTitle;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,6 +24,12 @@ public interface ProductRepository extends JpaRepository <Product,Long> {// < ge
 
     @Override
     List<Product> findAll(Sort sort);
+    //HQL : here we use name of the models , DB independent
+    @Query("select p.id as id,p.title as title from Product p where p.id = :x ")//when we write this annotation spring/Jpa will not write this quuery on their on ,  we are looking to provide custom query for this mehtod.
+   List<ProductWithIdAndTitle> randomSearchMethod(Long x);
+    //SQL
+    @Query(value = "select * from products p  where p.id = :productId",nativeQuery = true)
+    Product randomSearchMethod2(Long productId);
 }
 /*
 we will not be implementing methods on our own. we will use JPA repository .
