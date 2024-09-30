@@ -20,6 +20,7 @@ import java.util.List;
 public class FakeStoreProductService implements ProductService{
 
     private RestTemplate restTemplate;
+
     public  FakeStoreProductService(RestTemplate restTemplate){
         this.restTemplate=restTemplate;
 
@@ -37,6 +38,7 @@ public class FakeStoreProductService implements ProductService{
                 "https://fakestoreapi.com/products/" + productId, //call this url and whatever data is returning convert the output into this type( ie FakestrePrdDto.clss)
                 FakeStoreProductDto.class// we have manually replicated the output of the url in dto class
         );
+
         if(fakeStoreProductDto == null){
             throw new ProductNotFoundException("Product with id "+productId+"doesn't exist");
         }
