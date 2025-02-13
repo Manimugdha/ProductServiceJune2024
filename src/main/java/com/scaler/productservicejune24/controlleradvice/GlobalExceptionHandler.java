@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
         ResponseEntity<ExceptionDto> response = new ResponseEntity<>(
                 exceptionDto,
-                HttpStatus.NOT_FOUND
+                HttpStatus.BAD_REQUEST
 
         );
         return response;
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
 
         ResponseEntity<ExceptionDto> response = new ResponseEntity<>(
                 exceptionDto,
-                HttpStatus.NOT_FOUND
+                HttpStatus.BAD_REQUEST
 
         );
         return response;

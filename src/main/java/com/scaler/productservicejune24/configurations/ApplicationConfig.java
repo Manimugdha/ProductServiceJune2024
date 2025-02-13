@@ -2,6 +2,7 @@ package com.scaler.productservicejune24.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 //class where we define bean  methods is called configuration class. @configuration

@@ -4,6 +4,7 @@ import com.scaler.productservicejune24.exceptions.ProductNotFoundException;
 import com.scaler.productservicejune24.models.Product;
 import com.scaler.productservicejune24.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +61,8 @@ public class ProductController {
 
     }
     @GetMapping()
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize){
+        return productService.getAllProducts(pageNumber,pageSize);//task : conevert this list of product into page of product
     }
 
     @DeleteMapping("/{id}")

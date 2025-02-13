@@ -5,6 +5,8 @@ import com.scaler.productservicejune24.models.Category;
 import com.scaler.productservicejune24.models.Product;
 import com.scaler.productservicejune24.repositories.CategoryRepository;
 import com.scaler.productservicejune24.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +36,10 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return null;
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        return productRepository.findAll(
+                PageRequest.of(pageNumber,pageSize)
+        );
     }
 //PATCH
     @Override

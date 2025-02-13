@@ -6,6 +6,8 @@ import com.scaler.productservicejune24.models.Category;
 import com.scaler.productservicejune24.models.Product;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -49,7 +51,7 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public List<Product> getAllProducts() {
+    public Page <Product> getAllProducts(int pageNumber, int pageSize) {
         FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject(
                "https://fakestoreapi.com/products",
                 FakeStoreProductDto[].class//type eraser
@@ -63,7 +65,7 @@ public class FakeStoreProductService implements ProductService{
             products.add(convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
         }
 
-        return products;
+        return new PageImpl<>(products);
     }
 
     /*  << this is the format of the updateProduct method>>
